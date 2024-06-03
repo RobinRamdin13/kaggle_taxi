@@ -213,8 +213,11 @@ def main(train_path:str, test_path:str, output_path:str)-> None:
     return
 
 if __name__ == "__main__":
-    cwd = os.getcwd()
-    train_path = os.path.join(cwd, 'data/train.csv') # instantiate the training path
-    test_path = os.path.join(cwd, 'data/test.csv') # instantiate the testing path
-    output_path = os.path.join(cwd, 'data/output_file.csv') # instantiate the output path
+    # cwd = os.getcwd()
+    # train_path = os.path.join(cwd, 'data/train.csv') # instantiate the training path
+    # test_path = os.path.join(cwd, 'data/test.csv') # instantiate the testing path
+    # output_path = os.path.join(cwd, 'data/output_file.csv') # instantiate the output path
+    train_path = '/kaggle/input/new-york-city-taxi-fare-prediction/train.csv'
+    test_path = '/kaggle/input/new-york-city-taxi-fare-prediction/test.csv'
+    output_path = 'submission.csv'
     main(train_path, test_path, output_path)
