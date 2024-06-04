@@ -2,8 +2,9 @@
 
 This following code was develop to predict the taxi fare amount within New York. The data originates from the kaggle platform which can be found in [here](https://www.kaggle.com/competitions/new-york-city-taxi-fare-prediction/overview).
 
-In this code we have used Random Forest Regression model and Bayesian Optimization to find the best performing hyperparameters. Two sets of models were trained, the first was evluated on the evaluation set and the second was used to predict on the test set. \
----
+In this code we have used Random Forest Regression model and Bayesian Optimization to find the best performing hyperparameters. Two sets of models were trained, the first was evluated on the evaluation set and the second was used to predict on the test set.
+
+___
 ### Creating New Features 
 #### Distance from Airports
 There are three major airports within New York City, there coordinates were extracted from the web and used to compute the Euclidean distance between the pickup and dropoff point from the respective airports. This method was better than labelling whether a pick/dropoff was performed at an airport due to uncertainties within the coordinate system. 
