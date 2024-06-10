@@ -13,8 +13,8 @@ There are three major airports within New York City, there coordinates were extr
 This was performed under the hypothesis that trips to/from airports are generally higher priced as compared to the norm. 
 
 #### Rush Hour Timing 
-Another factor which can impact the fare amount is time. Extracting the approximate rush hour timing from the web, we classified whether a trip was started within the rush hour. This assumption is based on the fact that rush hour tends to have heavier traffic which can impact the amount paid by a client.
-
+Another factor which can impact the fare amount is time. The rush hour timings were extracted from the data. The plot below shows the number of taxi picked up grouped by their respective hours in the form of a bar chart, the red line signifies the average number of taxi called for every hour. Using this we are able to observe the rush hour timings to be between 0800hrs - 0900hrs, 1100hrs - 1500hrs and 1700hrs - 2300hrs. We categorize these timings as being under rush hour due to the higher than normal number of taxi called, this assumption is based on the fact that rush hour tends to have heavier traffic which can impact the amount paid by a client.
+![taxi_distribution](https://github.com/RobinRamdin13/kaggle_taxi/blob/main/plots/rush_hour_exp.jpeg)
 ___
 ### Running the Code 
 #### Creating Virtual Environment
