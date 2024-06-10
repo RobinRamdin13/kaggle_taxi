@@ -32,6 +32,19 @@ y_label = ['fare_amount']
 # define the random state for reproducibility
 random_state = 12345
 
+def restrict_scope(df:DataFrame)-> DataFrame:
+    min_latitude = 40.30
+    max_latitude = 45.1
+    min_longitude = -79.46
+    max_longitude = -71.51
+
+    df = df[
+    (df.pickup_latitude >= min_latitude) & (df.pickup_latitude <= max_latitude) &
+    (df.pickup_longitude >= min_longitude) & (df.pickup_longitude <= max_longitude) &
+    (df.dropoff_latitude >= min_latitude) & (df.dropoff_latitude <= max_latitude) &
+    (df.dropoff_longitude >= min_longitude) & (df.dropoff_longitude <= max_longitude)]
+    return df
+
 def split_datetime(df:DataFrame)-> DataFrame: 
     """Split the datetime objects into their respective columns
 
@@ -141,6 +154,7 @@ def main(train_path:str, test_path:str, output_path:str)-> None:
     # remove invalid fares and passenger_counts
     df_train = df_train[df_train['fare_amount']>=0]
     df_train = df_train[df_train['passenger_count']>0]
+    df_train = restrict_scope(df_train)
 
     # split the datetime into respective components
     df_train = split_datetime(df_train)
