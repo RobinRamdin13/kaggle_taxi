@@ -1,9 +1,11 @@
 import os 
+import folium
 import pandas as pd
 import matplotlib.pyplot as plt 
 
 from main import * 
 from pandas import DataFrame
+from folium.plugins import HeatMap
 
 # define global variables
 data_dtypes = {
@@ -15,6 +17,8 @@ data_dtypes = {
     'dropoff_latitude' : 'float32',
     'passenger_count' : 'uint8'
 }
+# define the coordinates for new york city 
+nyc_lat, nyc_long = 40.7128, -74.0060
 # define the coordinates for the major airports in new york
 lag_air_lat, lag_air_long = 40.776863, -73.874069
 jfk_air_lat, jfk_air_long = 40.641766, -73.780968
@@ -40,12 +44,34 @@ def rush_hour_exp(df:DataFrame)-> None:
     plt.savefig('plots/rush_hour_exp.jpeg')
     return
 
+def plot_heatmap(df:DataFrame)-> None:
+    nyc_map_pick = folium.Map(location=[nyc_lat, nyc_long], zoom_start=12, control_scale=True)
+    nyc_map_drop = folium.Map(location=[nyc_lat, nyc_long], zoom_start=12, control_scale=True)
+
+    df_pickup = df[['pickup_latitude', 'pickup_longitude']]
+    df_dropoff = df[['dropoff_latitude', 'dropoff_longitude']]
+
+    folium.CircleMarker(location=[lag_air_lat, lag_air_long], tooltip='LAG').add_to(nyc_map_pick)
+    folium.CircleMarker(location=[jfk_air_lat, jfk_air_long], tooltip='JFK').add_to(nyc_map_pick)
+    folium.CircleMarker(location=[ewr_air_lat, ewr_air_long], tooltip='EWR').add_to(nyc_map_pick)
+    folium.CircleMarker(location=[lag_air_lat, lag_air_long], tooltip='LAG').add_to(nyc_map_drop)
+    folium.CircleMarker(location=[jfk_air_lat, jfk_air_long], tooltip='JFK').add_to(nyc_map_drop)
+    folium.CircleMarker(location=[ewr_air_lat, ewr_air_long], tooltip='EWR').add_to(nyc_map_drop)
+
+    HeatMap(df_pickup).add_to(nyc_map_pick)
+    HeatMap(df_dropoff).add_to(nyc_map_drop)
+
+    nyc_map_pick.save('plots/plot_pickup_heatmap.html')
+    nyc_map_drop.save('plots/plot_dropoff_heatmap.html')
+    return
+
 def main(train_path:str)-> None:
     df_train = pd.read_csv(train_path, dtype=data_dtypes, parse_dates=['pickup_datetime'], nrows=10000)
 
     # remove invalid fares and passenger_counts
     df_train = df_train[df_train['fare_amount']>=0]
     df_train = df_train[df_train['passenger_count']>0]
+    df_train = restrict_scope(df_train)
 
     # feature addition
     df_train = split_datetime(df_train)
@@ -55,7 +81,9 @@ def main(train_path:str)-> None:
 
     # rush hour exploration
     rush_hour_exp(df_train)
-    # print(df_train.columns.tolist())
+
+    # plot heatmap 
+    plot_heatmap(df_train)
     return
 
 if __name__ == "__main__":
