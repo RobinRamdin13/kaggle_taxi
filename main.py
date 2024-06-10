@@ -103,9 +103,9 @@ def rush_hour(df:DataFrame)-> DataFrame:
     """    
     # using 1 and 0 similar to one-hot encoding
     df['rush_hour_pickup'] = np.where(
-        ((((df['pickup_datetime_hour']>=8) & (df['pickup_datetime_hour']<=9)) | 
-        ((df['pickup_datetime_hour']>=15) & (df['pickup_datetime_hour']<=19))) &
-        (df['pickup_datetime_weekday']<5)), 1, 0)
+        (((df['pickup_datetime_hour']>=8) & (df['pickup_datetime_hour']<=9)) | 
+        ((df['pickup_datetime_hour']>=11) & (df['pickup_datetime_hour']<=15)) |
+        ((df['pickup_datetime_hour']>=17) & (df['pickup_datetime_hour']<=23))), 1, 0)
     return df
 
 def fare_outlier(df:DataFrame)-> DataFrame: 
