@@ -10,7 +10,8 @@ ___
 #### Distance from Airports
 There are three major airports within New York City, there coordinates were extracted from the web and used to compute the Euclidean distance between the pickup and dropoff point from the respective airports. This method was better than labelling whether a pick/dropoff was performed at an airport due to uncertainties within the coordinate system. 
 
-This was performed under the hypothesis that trips to/from airports are generally higher priced as compared to the norm. 
+This was performed under the hypothesis that trips to/from airports are generally higher priced as compared to the norm. The heatmaps below show the pickup and dropoff in addition to the ariports being marked. 
+![pickup_plot](https://github.com/RobinRamdin13/kaggle_taxi/blob/main/plots/plot_pickup_heatmap.html)
 
 #### Rush Hour Timing 
 Another factor which can impact the fare amount is time. The rush hour timings were extracted from the data. The plot below shows the number of taxi picked up grouped by their respective hours in the form of a bar chart, the red line signifies the average number of taxi called for every hour. Using this we are able to observe the rush hour timings to be between 0800hrs - 0900hrs, 1100hrs - 1500hrs and 1700hrs - 2300hrs. We categorize these timings as being under rush hour due to the higher than normal number of taxi called, this assumption is based on the fact that rush hour tends to have heavier traffic which can impact the amount paid by a client.
